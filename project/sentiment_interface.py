@@ -12,11 +12,11 @@ EMBEDDING_SIZE = 50
 
 def predictions_dataframe(predictions, sentences):
     df_predictions = pd.DataFrame(
-        predictions, columns=["true_label", "predicted_label", "logit"]
+        predictions, columns = ["true_label", "predicted_label", "logit"]
     )
     df_predictions["sentence"] = sentences[: len(predictions)]
     df_predictions["error"] = df_predictions.apply(
-        lambda row: abs(row.true_label - row.logit), axis=1
+        lambda row: abs(row.true_label - row.logit), axis = 1
     )
     # reorder
     return df_predictions[
@@ -24,20 +24,20 @@ def predictions_dataframe(predictions, sentences):
     ]
 
 
-@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation = True)
 def load_glue_dataset():
     print("Loading dataset")
     return load_dataset("glue", "sst2")
 
 
 #  st.subheader("Encode training data as nxk Glove embeddings tensor representations")
-@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation = True)
 def load_data(dataset, n_train, n_val):
     print("Loading embeddings... This can take a while the first time.")
     return encode_sentiment_data(
         dataset,
         embeddings.GloveEmbedding(
-            "wikipedia_gigaword", d_emb=EMBEDDING_SIZE, show_progress=True
+            "wikipedia_gigaword", d_emb = EMBEDDING_SIZE, show_progress = True
         ),
         n_train,
         n_val,
@@ -45,7 +45,6 @@ def load_data(dataset, n_train, n_val):
 
 
 def render_run_sentiment_interface():
-
     st.header("Sentiment Classification")
     st.write(
         "[Glue SS2 Dataset documentation](https://huggingface.co/datasets/glue/viewer/sst2/train)"
@@ -62,31 +61,31 @@ def render_run_sentiment_interface():
     st.table(
         pd.DataFrame(
             list(zip(dataset["train"]["sentence"][:3], dataset["train"]["label"][:3])),
-            columns=["Sentence", "Label"],
+            columns = ["Sentence", "Label"],
         )
     )
 
     st.subheader("CNN Hyperparameters")
     col1, col2 = st.beta_columns(2)
-    feature_map_size = col1.number_input("Feature map size", value=100)
-    dropout = col2.number_input("Dropout", value=0.25)
+    feature_map_size = col1.number_input("Feature map size", value = 100)
+    dropout = col2.number_input("Dropout", value = 0.25)
     st.write("**Conv layer filter sizes**")
     col1, col2, col3 = st.beta_columns(3)
-    filter_size_1 = col1.number_input("Filter 1", value=3)
-    filter_size_2 = col2.number_input("Filter 2", value=4)
-    filter_size_3 = col3.number_input("Filter 3", value=5)
+    filter_size_1 = col1.number_input("Filter 1", value = 3)
+    filter_size_2 = col2.number_input("Filter 2", value = 4)
+    filter_size_3 = col3.number_input("Filter 3", value = 5)
 
     st.subheader("Training config")
     col1, col2 = st.beta_columns(2)
-    max_epochs = col1.number_input("Max epochs", value=250)
+    max_epochs = col1.number_input("Max epochs", value = 250)
     learning_rate = col2.number_input(
-        "Learning rate", value=0.01, step=0.001, format="%.3f"
+        "Learning rate", value = 0.01, step = 0.001, format = "%.3f"
     )
-    n_training_data = col1.number_input("N datapoints from training data", value=450)
+    n_training_data = col1.number_input("N datapoints from training data", value = 450)
     n_validation_data = col2.number_input(
-        "N datapoints from validation data", value=100
+        "N datapoints from validation data", value = 100
     )
-    batch_size = st.number_input("Batch size", value=10)
+    batch_size = st.number_input("Batch size", value = 10)
 
     if st.button("Train model"):
         df = []
@@ -107,21 +106,21 @@ def render_run_sentiment_interface():
         print("Initializing model...")
         sentiment_model_trainer = SentenceSentimentTrain(
             CNNSentimentKim(
-                feature_map_size=feature_map_size,
-                filter_sizes=[filter_size_1, filter_size_2, filter_size_3],
-                dropout=dropout,
+                feature_map_size = feature_map_size,
+                filter_sizes = [filter_size_1, filter_size_2, filter_size_3],
+                dropout = dropout,
             )
         )
         start_time = time.time()
 
         def log_fn(
-            epoch,
-            total_loss,
-            losses,
-            train_predictions,
-            train_accuracy,
-            validation_predictions,
-            validation_accuracy,
+                epoch,
+                total_loss,
+                losses,
+                train_predictions,
+                train_accuracy,
+                validation_predictions,
+                validation_accuracy,
         ):
             time_elapsed = time.time() - start_time
             st_progress.progress(epoch / max_epochs)
@@ -147,33 +146,33 @@ def render_run_sentiment_interface():
             fig = go.Figure()
             fig.add_trace(
                 go.Scatter(
-                    mode="lines",
-                    x=list(range(len(train_accuracy))),
-                    y=train_accuracy,
-                    name="train accuracy",
+                    mode = "lines",
+                    x = list(range(len(train_accuracy))),
+                    y = train_accuracy,
+                    name = "train accuracy",
                 )
             )
             fig.add_trace(
                 go.Scatter(
-                    mode="lines",
-                    x=list(range(len(validation_accuracy))),
-                    y=validation_accuracy,
-                    name="validation accuracy",
+                    mode = "lines",
+                    x = list(range(len(validation_accuracy))),
+                    y = validation_accuracy,
+                    name = "validation accuracy",
                 )
             )
             fig.update_layout(
-                title="Accuracy Graph",
-                xaxis=dict(range=[0, max_epochs]),
-                yaxis=dict(range=[0, 1]),
+                title = "Accuracy Graph",
+                xaxis = dict(range = [0, max_epochs]),
+                yaxis = dict(range = [0, 1]),
             )
             st_epoch_accuracy.plotly_chart(fig)
 
-            loss_graph = go.Scatter(mode="lines", x=list(range(len(losses))), y=losses)
+            loss_graph = go.Scatter(mode = "lines", x = list(range(len(losses))), y = losses)
             fig = go.Figure(loss_graph)
             fig.update_layout(
-                title="Loss Graph",
-                xaxis=dict(range=[0, max_epochs]),
-                yaxis=dict(range=[0, max(losses)]),
+                title = "Loss Graph",
+                xaxis = dict(range = [0, max_epochs]),
+                yaxis = dict(range = [0, max(losses)]),
             )
             st_epoch_plot.plotly_chart(fig)
 
@@ -191,9 +190,9 @@ def render_run_sentiment_interface():
 
         sentiment_model_trainer.train(
             (X_train, y_train),
-            learning_rate=learning_rate,
-            batch_size=batch_size,
-            max_epochs=max_epochs,
-            log_fn=log_fn,
-            data_val=(X_val, y_val),
+            learning_rate = learning_rate,
+            batch_size = batch_size,
+            max_epochs = max_epochs,
+            log_fn = log_fn,
+            data_val = (X_val, y_val),
         )

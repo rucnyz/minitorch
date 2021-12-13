@@ -10,8 +10,8 @@ import minitorch
 
 ## Create an autodiff expression here.
 def expression():
-    x = minitorch.Scalar(1.0, name="x")
-    y = minitorch.Scalar(1.0, name="y")
+    x = minitorch.Scalar(1.0, name = "x")
+    y = minitorch.Scalar(1.0, name = "y")
     z = (x * x) * y + 10.0 * x
     z.name = "z"
     return z
@@ -52,7 +52,7 @@ class GraphBuilder:
                 continue
             else:
                 op = "%s (Op %d)" % (cur.history.last_fn.__name__, self.op_id)
-                G.add_node(op, shape="square", penwidth=3)
+                G.add_node(op, shape = "square", penwidth = 3)
                 G.add_edge(op, self.get_name(cur))
                 self.op_id += 1
                 for i, input in enumerate(cur.history.inputs):

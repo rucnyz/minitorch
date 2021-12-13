@@ -11,19 +11,19 @@ from minitorch import MathTestVariable
 
 @pytest.mark.task1_1
 def test_central_diff():
-    d = central_difference(operators.id, 5, arg=0)
+    d = central_difference(operators.id, 5, arg = 0)
     assert_close(d, 1.0)
 
-    d = central_difference(operators.add, 5, 10, arg=0)
+    d = central_difference(operators.add, 5, 10, arg = 0)
     assert_close(d, 1.0)
 
-    d = central_difference(operators.mul, 5, 10, arg=0)
+    d = central_difference(operators.mul, 5, 10, arg = 0)
     assert_close(d, 10.0)
 
-    d = central_difference(operators.mul, 5, 10, arg=1)
+    d = central_difference(operators.mul, 5, 10, arg = 1)
     assert_close(d, 5.0)
 
-    d = central_difference(operators.exp, 2, arg=0)
+    d = central_difference(operators.exp, 2, arg = 0)
     assert_close(d, operators.exp(2.0))
 
 
@@ -88,7 +88,7 @@ def test_two_derivative(fn, t1, t2):
 
 
 def test_scalar_name():
-    x = Scalar(10, name="x")
+    x = Scalar(10, name = "x")
     y = (x + 10.0) * 20
     y.name = "y"
     return y

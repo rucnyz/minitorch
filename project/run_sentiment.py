@@ -7,7 +7,7 @@ BACKEND = minitorch.make_tensor_backend(minitorch.FastOps)
 
 
 def RParam(*shape):
-    r = 0.1 * (minitorch.rand(shape, backend=BACKEND) - 0.5)
+    r = 0.1 * (minitorch.rand(shape, backend = BACKEND) - 0.5)
     return minitorch.Parameter(r)
 
 
@@ -21,8 +21,8 @@ class Linear(minitorch.Module):
     def forward(self, x):
         batch, in_size = x.shape
         return (
-            x.view(batch, in_size) @ self.weights.value.view(in_size, self.out_size)
-        ).view(batch, self.out_size) + self.bias.value
+                       x.view(batch, in_size) @ self.weights.value.view(in_size, self.out_size)
+               ).view(batch, self.out_size) + self.bias.value
 
 
 class Conv1d(minitorch.Module):
@@ -53,11 +53,11 @@ class CNNSentimentKim(minitorch.Module):
     """
 
     def __init__(
-        self,
-        feature_map_size=100,
-        embedding_size=50,
-        filter_sizes=[3, 4, 5],
-        dropout=0.25,
+            self,
+            feature_map_size = 100,
+            embedding_size = 50,
+            filter_sizes = [3, 4, 5],
+            dropout = 0.25,
     ):
         super().__init__()
         self.feature_map_size = feature_map_size
@@ -113,13 +113,13 @@ best_val = 0.0
 
 
 def default_log_fn(
-    epoch,
-    train_loss,
-    losses,
-    train_predictions,
-    train_accuracy,
-    validation_predictions,
-    validation_accuracy,
+        epoch,
+        train_loss,
+        losses,
+        train_predictions,
+        train_accuracy,
+        validation_predictions,
+        validation_accuracy,
 ):
     global best_val
     best_val = (
@@ -136,13 +136,13 @@ class SentenceSentimentTrain:
         self.model = model
 
     def train(
-        self,
-        data_train,
-        learning_rate,
-        batch_size=10,
-        max_epochs=500,
-        data_val=None,
-        log_fn=default_log_fn,
+            self,
+            data_train,
+            learning_rate,
+            batch_size = 10,
+            max_epochs = 500,
+            data_val = None,
+            log_fn = default_log_fn,
     ):
         model = self.model
         (X_train, y_train) = data_train
@@ -158,13 +158,13 @@ class SentenceSentimentTrain:
             train_predictions = []
             batch_size = min(batch_size, n_training_samples)
             for batch_num, example_num in enumerate(
-                range(0, n_training_samples, batch_size)
+                    range(0, n_training_samples, batch_size)
             ):
                 y = minitorch.tensor(
-                    y_train[example_num : example_num + batch_size], backend=BACKEND
+                    y_train[example_num: example_num + batch_size], backend = BACKEND
                 )
                 x = minitorch.tensor(
-                    X_train[example_num : example_num + batch_size], backend=BACKEND
+                    X_train[example_num: example_num + batch_size], backend = BACKEND
                 )
                 x.requires_grad_(True)
                 y.requires_grad_(True)
@@ -186,8 +186,8 @@ class SentenceSentimentTrain:
             if data_val is not None:
                 (X_val, y_val) = data_val
                 model.eval()
-                y = minitorch.tensor(y_val, backend=BACKEND,)
-                x = minitorch.tensor(X_val, backend=BACKEND,)
+                y = minitorch.tensor(y_val, backend = BACKEND, )
+                x = minitorch.tensor(X_val, backend = BACKEND, )
                 out = model.forward(x)
                 validation_predictions += get_predictions_array(y, out)
                 validation_accuracy.append(get_accuracy(validation_predictions))
@@ -208,7 +208,7 @@ class SentenceSentimentTrain:
 
 
 def encode_sentences(
-    dataset, N, max_sentence_len, embeddings_lookup, unk_embedding, unks
+        dataset, N, max_sentence_len, embeddings_lookup, unk_embedding, unks
 ):
     Xs = []
     ys = []
@@ -231,8 +231,7 @@ def encode_sentences(
     return Xs, ys
 
 
-def encode_sentiment_data(dataset, pretrained_embeddings, N_train, N_val=0):
-
+def encode_sentiment_data(dataset, pretrained_embeddings, N_train, N_val = 0):
     #  Determine max sentence length for padding
     max_sentence_len = 0
     for sentence in dataset["train"]["sentence"] + dataset["validation"]["sentence"]:
@@ -271,16 +270,16 @@ if __name__ == "__main__":
 
     (X_train, y_train), (X_val, y_val) = encode_sentiment_data(
         load_dataset("glue", "sst2"),
-        embeddings.GloveEmbedding("wikipedia_gigaword", d_emb=50, show_progress=True),
+        embeddings.GloveEmbedding("wikipedia_gigaword", d_emb = 50, show_progress = True),
         train_size,
         validation_size,
     )
     model_trainer = SentenceSentimentTrain(
-        CNNSentimentKim(feature_map_size=100, filter_sizes=[3, 4, 5], dropout=0.25)
+        CNNSentimentKim(feature_map_size = 100, filter_sizes = [3, 4, 5], dropout = 0.25)
     )
     model_trainer.train(
         (X_train, y_train),
         learning_rate,
-        max_epochs=max_epochs,
-        data_val=(X_val, y_val),
+        max_epochs = max_epochs,
+        data_val = (X_val, y_val),
     )

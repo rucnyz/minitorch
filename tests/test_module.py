@@ -3,6 +3,7 @@ import pytest
 from hypothesis import given
 from .strategies import med_ints, small_floats
 
+
 # # Tests for module.py
 
 
@@ -74,7 +75,7 @@ class Module1(minitorch.Module):
 
 
 class Module2(minitorch.Module):
-    def __init__(self, extra=0):
+    def __init__(self, extra = 0):
         super().__init__()
         self.parameter_a = minitorch.Parameter(VAL_A)
         self.parameter_b = minitorch.Parameter(VAL_B)

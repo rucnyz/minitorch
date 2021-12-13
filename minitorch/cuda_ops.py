@@ -13,9 +13,9 @@ from .tensor_data import (
 # If you get an error, read the docs for NUMBA as to what is allowed
 # in these functions.
 
-to_index = cuda.jit(device=True)(to_index)
-index_to_position = cuda.jit(device=True)(index_to_position)
-broadcast_index = cuda.jit(device=True)(broadcast_index)
+to_index = cuda.jit(device = True)(to_index)
+index_to_position = cuda.jit(device = True)(index_to_position)
+broadcast_index = cuda.jit(device = True)(broadcast_index)
 
 THREADS_PER_BLOCK = 32
 
@@ -50,9 +50,9 @@ def tensor_map(fn):
 
 def map(fn):
     # CUDA compile your kernel
-    f = tensor_map(cuda.jit(device=True)(fn))
+    f = tensor_map(cuda.jit(device = True)(fn))
 
-    def ret(a, out=None):
+    def ret(a, out = None):
         if out is None:
             out = a.zeros(a.shape)
 
@@ -90,16 +90,16 @@ def tensor_zip(fn):
     """
 
     def _zip(
-        out,
-        out_shape,
-        out_strides,
-        out_size,
-        a_storage,
-        a_shape,
-        a_strides,
-        b_storage,
-        b_shape,
-        b_strides,
+            out,
+            out_shape,
+            out_strides,
+            out_size,
+            a_storage,
+            a_shape,
+            a_strides,
+            b_storage,
+            b_shape,
+            b_strides,
     ):
         # TODO: Implement for Task 3.3.
         raise NotImplementedError('Need to implement for Task 3.3')
@@ -108,7 +108,7 @@ def tensor_zip(fn):
 
 
 def zip(fn):
-    f = tensor_zip(cuda.jit(device=True)(fn))
+    f = tensor_zip(cuda.jit(device = True)(fn))
 
     def ret(a, b):
         c_shape = shape_broadcast(a.shape, b.shape)
@@ -184,15 +184,15 @@ def tensor_reduce(fn):
     """
 
     def _reduce(
-        out,
-        out_shape,
-        out_strides,
-        out_size,
-        a_storage,
-        a_shape,
-        a_strides,
-        reduce_dim,
-        reduce_value,
+            out,
+            out_shape,
+            out_strides,
+            out_size,
+            a_storage,
+            a_shape,
+            a_strides,
+            reduce_dim,
+            reduce_value,
     ):
         BLOCK_DIM = 1024
         # TODO: Implement for Task 3.3.
@@ -201,7 +201,7 @@ def tensor_reduce(fn):
     return cuda.jit()(_reduce)
 
 
-def reduce(fn, start=0.0):
+def reduce(fn, start = 0.0):
     """
     Higher-order tensor reduce function. ::
 
@@ -224,7 +224,7 @@ def reduce(fn, start=0.0):
     Returns:
         :class:`Tensor` : new tensor
     """
-    f = tensor_reduce(cuda.jit(device=True)(fn))
+    f = tensor_reduce(cuda.jit(device = True)(fn))
 
     def ret(a, dim):
         out_shape = list(a.shape)
@@ -280,7 +280,6 @@ jit_mm_practice = cuda.jit()(_mm_practice)
 
 
 def mm_practice(a, b):
-
     (size, _) = a.shape
     threadsperblock = (THREADS_PER_BLOCK, THREADS_PER_BLOCK)
     blockspergrid = 1
@@ -294,16 +293,16 @@ def mm_practice(a, b):
 
 @cuda.jit()
 def tensor_matrix_multiply(
-    out,
-    out_shape,
-    out_strides,
-    out_size,
-    a_storage,
-    a_shape,
-    a_strides,
-    b_storage,
-    b_shape,
-    b_strides,
+        out,
+        out_shape,
+        out_strides,
+        out_size,
+        a_storage,
+        a_shape,
+        a_strides,
+        b_storage,
+        b_shape,
+        b_strides,
 ):
     """
     CUDA tensor matrix multiply function.

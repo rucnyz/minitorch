@@ -132,7 +132,7 @@ def maxpool2d(input, kernel):
     raise NotImplementedError('Need to implement for Task 4.4')
 
 
-def dropout(input, rate, ignore=False):
+def dropout(input, rate, ignore = False):
     """
     Dropout positions based on random noise.
 

@@ -16,7 +16,7 @@ class Variable:
         name (string) : a globally unique name of the variable
     """
 
-    def __init__(self, history, name=None):
+    def __init__(self, history, name = None):
         global variable_count
         assert history is None or isinstance(history, History), history
 
@@ -46,7 +46,7 @@ class Variable:
         """
         self.history = History()
 
-    def backward(self, d_output=None):
+    def backward(self, d_output = None):
         """
         Calls autodiff to fill in the derivatives for the history of this object.
 
@@ -137,7 +137,7 @@ class Context:
         saved_tensors (tuple) : alias for saved_values
     """
 
-    def __init__(self, no_grad=False):
+    def __init__(self, no_grad = False):
         self._saved_values = None
         self.no_grad = no_grad
 
@@ -175,7 +175,7 @@ class History:
 
     """
 
-    def __init__(self, last_fn=None, ctx=None, inputs=None):
+    def __init__(self, last_fn = None, ctx = None, inputs = None):
         self.last_fn = last_fn
         self.ctx = ctx
         self.inputs = inputs

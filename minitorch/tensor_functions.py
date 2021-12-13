@@ -2,7 +2,6 @@
 Implementation of the autodifferentiation Functions for Tensor.
 """
 
-
 from .autodiff import FunctionBase
 from .tensor_ops import TensorOps
 import numpy as np
@@ -17,14 +16,14 @@ class Function(FunctionBase):
 
     @staticmethod
     def variable(data, back):
-        return Tensor(data[0], back, backend=data[1])
+        return Tensor(data[0], back, backend = data[1])
 
     @staticmethod
     def data(a):
         return (a._tensor, a.backend)
 
 
-def make_tensor_backend(tensor_ops, is_cuda=False):
+def make_tensor_backend(tensor_ops, is_cuda = False):
     """
     Dynamically construct a tensor backend based on a `tensor_ops` object
     that implements map, zip, and reduce higher-order functions.
@@ -224,13 +223,13 @@ def make_tensor_backend(tensor_ops, is_cuda=False):
             def forward(ctx, a, shape):
                 ctx.save_for_backward(a.shape)
                 assert a._tensor.is_contiguous(), "Must be contiguous to view"
-                return Tensor.make(a._tensor._storage, shape, backend=a.backend)
+                return Tensor.make(a._tensor._storage, shape, backend = a.backend)
 
             @staticmethod
             def backward(ctx, grad_output):
                 original = ctx.saved_values
                 return Tensor.make(
-                    grad_output._tensor._storage, original, backend=grad_output.backend
+                    grad_output._tensor._storage, original, backend = grad_output.backend
                 )
 
         class Copy(Function):
@@ -269,7 +268,7 @@ TensorFunctions = make_tensor_backend(TensorOps)
 
 
 # Helpers for Constructing tensors
-def zeros(shape, backend=TensorFunctions):
+def zeros(shape, backend = TensorFunctions):
     """
     Produce a zero tensor of size `shape`.
 
@@ -280,10 +279,10 @@ def zeros(shape, backend=TensorFunctions):
     Returns:
         :class:`Tensor` : new tensor
     """
-    return Tensor.make([0] * int(operators.prod(shape)), shape, backend=backend)
+    return Tensor.make([0] * int(operators.prod(shape)), shape, backend = backend)
 
 
-def rand(shape, backend=TensorFunctions, requires_grad=False):
+def rand(shape, backend = TensorFunctions, requires_grad = False):
     """
     Produce a random tensor of size `shape`.
 
@@ -296,12 +295,12 @@ def rand(shape, backend=TensorFunctions, requires_grad=False):
         :class:`Tensor` : new tensor
     """
     vals = [random.random() for _ in range(int(operators.prod(shape)))]
-    tensor = Tensor.make(vals, shape, backend=backend)
+    tensor = Tensor.make(vals, shape, backend = backend)
     tensor.requires_grad_(requires_grad)
     return tensor
 
 
-def _tensor(ls, shape=None, backend=TensorFunctions, requires_grad=False):
+def _tensor(ls, shape = None, backend = TensorFunctions, requires_grad = False):
     """
     Produce a tensor with data ls and shape `shape`.
 
@@ -314,12 +313,12 @@ def _tensor(ls, shape=None, backend=TensorFunctions, requires_grad=False):
     Returns:
         :class:`Tensor` : new tensor
     """
-    tensor = Tensor.make(ls, shape, backend=backend)
+    tensor = Tensor.make(ls, shape, backend = backend)
     tensor.requires_grad_(requires_grad)
     return tensor
 
 
-def tensor(ls, backend=TensorFunctions, requires_grad=False):
+def tensor(ls, backend = TensorFunctions, requires_grad = False):
     """
     Produce a tensor with data and shape from ls
 
@@ -346,13 +345,13 @@ def tensor(ls, backend=TensorFunctions, requires_grad=False):
 
     cur = flatten(ls)
     shape = shape(ls)
-    return _tensor(cur, tuple(shape), backend=backend, requires_grad=requires_grad)
+    return _tensor(cur, tuple(shape), backend = backend, requires_grad = requires_grad)
 
 
 # Gradient check for tensors
 
 
-def grad_central_difference(f, *vals, arg=0, epsilon=1e-6, ind=None):
+def grad_central_difference(f, *vals, arg = 0, epsilon = 1e-6, ind = None):
     x = vals[arg]
     up = zeros(x.shape)
     up[ind] = epsilon
@@ -383,11 +382,11 @@ but was expecting derivative %f from central difference.
 
     for i, x in enumerate(vals):
         ind = x._tensor.sample()
-        check = grad_central_difference(f, *vals, arg=i, ind=ind)
+        check = grad_central_difference(f, *vals, arg = i, ind = ind)
         np.testing.assert_allclose(
             x.grad[ind],
             check,
             1e-2,
             1e-2,
-            err_msg=err_msg % (f, vals, x.grad[ind], i, ind, check),
+            err_msg = err_msg % (f, vals, x.grad[ind], i, ind, check),
         )

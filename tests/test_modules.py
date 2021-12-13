@@ -46,7 +46,7 @@ class ScalarLinear(minitorch.Module):
         return y
 
 
-@given(lists(scalars(), max_size=10), integers(min_value=5, max_value=20))
+@given(lists(scalars(), max_size = 10), integers(min_value = 5, max_value = 20))
 def test_linear(inputs, out_size):
     lin = ScalarLinear(len(inputs), out_size)
     mid = lin.forward(inputs)
@@ -72,7 +72,7 @@ def test_linear(inputs, out_size):
 def test_nn_size():
     model = Network2()
     assert len(model.parameters()) == (
-        len(model.layer1.parameters()) + len(model.layer2.parameters())
+            len(model.layer1.parameters()) + len(model.layer2.parameters())
     )
 
     assert model.layer2.bias[0].value.data != 0

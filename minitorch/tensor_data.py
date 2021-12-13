@@ -97,11 +97,11 @@ def strides_from_shape(shape):
 
 
 class TensorData:
-    def __init__(self, storage, shape, strides=None):
+    def __init__(self, storage, shape, strides = None):
         if isinstance(storage, ndarray):
             self._storage = storage
         else:
-            self._storage = array(storage, dtype=float64)
+            self._storage = array(storage, dtype = float64)
 
         if strides is None:
             strides = strides_from_shape(shape)

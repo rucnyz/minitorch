@@ -21,10 +21,10 @@ class Tensor(Variable):
         backend : backend object used to implement tensor math (see `tensor_functions.py`)
     """
 
-    def __init__(self, v, back=None, name=None, backend=None):
+    def __init__(self, v, back = None, name = None, backend = None):
         assert isinstance(v, TensorData)
         assert backend is not None
-        super().__init__(back, name=name)
+        super().__init__(back, name = name)
         self._tensor = v
         self.backend = backend
 
@@ -63,7 +63,7 @@ class Tensor(Variable):
     def _ensure_tensor(self, b):
         "Turns a python number into a tensor with the same backend."
         if isinstance(b, (int, float)):
-            b = Tensor.make([b], (1,), backend=self.backend)
+            b = Tensor.make([b], (1,), backend = self.backend)
         else:
             b._type_(self.backend)
         return b
@@ -104,7 +104,7 @@ class Tensor(Variable):
     def __neg__(self):
         return self.backend.Neg.apply(self)
 
-    def all(self, dim=None):
+    def all(self, dim = None):
         return self.backend.All.apply(self, dim)
 
     def is_close(self, y):
@@ -126,11 +126,11 @@ class Tensor(Variable):
     def exp(self):
         return self.backend.Exp.apply(self)
 
-    def sum(self, dim=None):
+    def sum(self, dim = None):
         "Compute the sum over dimension `dim`"
         return self.backend.Sum.apply(self, dim)
 
-    def mean(self, dim=None):
+    def mean(self, dim = None):
         "Compute the mean over dimension `dim`"
         if dim is not None:
             return self.sum(dim) / self.shape[dim]
@@ -169,12 +169,12 @@ class Tensor(Variable):
             self._tensor.to_cuda_()
 
     def _new(self, tensor_data):
-        return Tensor(tensor_data, backend=self.backend)
+        return Tensor(tensor_data, backend = self.backend)
 
     @staticmethod
-    def make(storage, shape, strides=None, backend=None):
+    def make(storage, shape, strides = None, backend = None):
         "Create a new tensor from data"
-        return Tensor(TensorData(storage, shape, strides), backend=backend)
+        return Tensor(TensorData(storage, shape, strides), backend = backend)
 
     def expand(self, other):
         """
@@ -198,7 +198,7 @@ class Tensor(Variable):
         # Case 2: Backward is a smaller than self. Broadcast up.
         true_shape = TensorData.shape_broadcast(self.shape, other.shape)
         buf = self.zeros(true_shape)
-        self.backend._id_map(other, out=buf)
+        self.backend._id_map(other, out = buf)
         if self.shape == true_shape:
             return buf
 
@@ -210,13 +210,13 @@ class Tensor(Variable):
                 out = self.backend._add_reduce(out, dim)
         assert out.size == self.size, f"{out.shape} {self.shape}"
         # START CODE CHANGE (2021)
-        return Tensor.make(out._tensor._storage, self.shape, backend=self.backend)
+        return Tensor.make(out._tensor._storage, self.shape, backend = self.backend)
         # END CODE CHANGE (2021)
 
-    def zeros(self, shape=None):
+    def zeros(self, shape = None):
         def zero(shape):
             return Tensor.make(
-                [0] * int(operators.prod(shape)), shape, backend=self.backend
+                [0] * int(operators.prod(shape)), shape, backend = self.backend
             )
 
         if shape is None:
@@ -230,10 +230,10 @@ class Tensor(Variable):
         return self._tensor.tuple()
 
     def get_data(self):
-        return Tensor(self._tensor, backend=self.backend)
+        return Tensor(self._tensor, backend = self.backend)
 
-    def backward(self, grad_output=None):
+    def backward(self, grad_output = None):
         if grad_output is None:
             assert self.shape == (1,), "Must provide grad_output if non-scalar"
-            grad_output = Tensor.make([1.0], (1,), backend=self.backend)
+            grad_output = Tensor.make([1.0], (1,), backend = self.backend)
         super().backward(grad_output)

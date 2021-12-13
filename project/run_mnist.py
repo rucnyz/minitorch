@@ -7,7 +7,6 @@ vis = visdom.Visdom()
 mndata = MNIST("data/")
 images, labels = mndata.load_training()
 
-
 BACKEND = minitorch.make_tensor_functions(minitorch.FastOps)
 RATE = 0.01
 HIDDEN = 20
@@ -105,9 +104,8 @@ for i in range(10000, 10500):
         val_ys.append(1.0 if y == 3 else 0.0)
         val_x += images[i]
 vis.images(
-    numpy.array(val_x).reshape((len(val_ys), 1, 28, 28))[:BATCH], win="val_images"
+    numpy.array(val_x).reshape((len(val_ys), 1, 28, 28))[:BATCH], win = "val_images"
 )
-
 
 model = Network2()
 losses = []
@@ -117,8 +115,8 @@ for epoch in range(250):
     for i, j in enumerate(range(0, len(ys), BATCH)):
         if len(ys) - j <= BATCH:
             continue
-        y = minitorch.tensor(ys[j : j + BATCH], (BATCH,))
-        x = minitorch.tensor(X[cur : cur + 28 * 28 * BATCH], (BATCH, 28 * 28))
+        y = minitorch.tensor(ys[j: j + BATCH], (BATCH,))
+        x = minitorch.tensor(X[cur: cur + 28 * 28 * BATCH], (BATCH, 28 * 28))
         x.requires_grad_(True)
         y.requires_grad_(True)
         y.type_(BACKEND)
@@ -147,15 +145,15 @@ for epoch in range(250):
                     correct += 1
             for channel in range(4):
                 vis.images(
-                    -1 * model.mid.to_numpy()[:, channel : channel + 1],
-                    win=f"mid_images_{channel}",
-                    opts=dict(nrow=4, caption=f"mid_images_{channel}"),
+                    -1 * model.mid.to_numpy()[:, channel: channel + 1],
+                    win = f"mid_images_{channel}",
+                    opts = dict(nrow = 4, caption = f"mid_images_{channel}"),
                 )
             for channel in range(8):
                 vis.images(
-                    -1 * model.out.to_numpy()[:, channel : channel + 1],
-                    win=f"out_images_{channel}",
-                    opts=dict(nrow=4, caption=f"out_images_{channel}"),
+                    -1 * model.out.to_numpy()[:, channel: channel + 1],
+                    win = f"out_images_{channel}",
+                    opts = dict(nrow = 4, caption = f"out_images_{channel}"),
                 )
 
             print("Epoch ", epoch, " loss ", total_loss, "correct", correct)

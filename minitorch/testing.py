@@ -108,12 +108,12 @@ class MathTest:
     @staticmethod
     def complex(a):
         return (
-            operators.log(
-                operators.sigmoid(
-                    operators.relu(operators.relu(a * 10 + 7) * 6 + 5) * 10
+                operators.log(
+                    operators.sigmoid(
+                        operators.relu(operators.relu(a * 10 + 7) * 6 + 5) * 10
+                    )
                 )
-            )
-            / 50
+                / 50
         )
 
     @classmethod

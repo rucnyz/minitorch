@@ -9,14 +9,14 @@ import interface.plots as plots
 
 
 def render_train_interface(
-    TrainCls, graph=True, hidden_layer=True, parameter_control=False
+        TrainCls, graph = True, hidden_layer = True, parameter_control = False
 ):
     datasets_map = minitorch.datasets
     st.write("## Sandbox for Model Training")
 
     st.markdown("### Dataset")
     col1, col2 = st.beta_columns(2)
-    points = col2.slider("Number of points", min_value=1, max_value=150, value=50)
+    points = col2.slider("Number of points", min_value = 1, max_value = 150, value = 50)
     selected_dataset = col1.selectbox("Select dataset", list(datasets_map.keys()))
 
     @st.cache
@@ -26,13 +26,13 @@ def render_train_interface(
     dataset = get_dataset(selected_dataset, points)
 
     fig = plots.plot_out(dataset)
-    fig.update_layout(width=600, height=600)
+    fig.update_layout(width = 600, height = 600)
     st.plotly_chart(fig)
 
     st.markdown("### Model")
     if hidden_layer:
         hidden_layers = st.number_input(
-            "Size of hidden layer", min_value=1, max_value=200, step=1, value=2
+            "Size of hidden layer", min_value = 1, max_value = 200, step = 1, value = 2
         )
     else:
         hidden_layers = 0
@@ -54,7 +54,7 @@ def render_train_interface(
         st.markdown("### Parameters")
         for n, p in train.model.named_parameters():
             value = st.slider(
-                f"Parameter: {n}", min_value=-10.0, max_value=10.0, value=p.value
+                f"Parameter: {n}", min_value = -10.0, max_value = 10.0, value = p.value
             )
             p.update(value)
 
@@ -74,8 +74,8 @@ def render_train_interface(
                 out = [(x.data if hasattr(x, "data") else x) for x in out]
                 return out
 
-        fig = plots.plot_out(dataset, contour, size=15, oned=oned)
-        fig.update_layout(width=600, height=600)
+        fig = plots.plot_out(dataset, contour, size = 15, oned = oned)
+        fig.update_layout(width = 600, height = 600)
         return fig
 
     st.markdown("### Initial setting")
@@ -85,11 +85,11 @@ def render_train_interface(
         st.markdown("### Hyperparameters")
         col1, col2 = st.beta_columns(2)
         learning_rate = col1.selectbox(
-            "Learning rate", [0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0], index=2
+            "Learning rate", [0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0], index = 2
         )
 
         max_epochs = col2.number_input(
-            "Number of epochs", min_value=1, step=25, value=500
+            "Number of epochs", min_value = 1, step = 25, value = 500
         )
 
         col1, col2 = st.beta_columns(2)
@@ -122,12 +122,12 @@ def render_train_interface(
         st_epoch_stats.write(pd.DataFrame(reversed(df)))
 
         st_epoch_image.plotly_chart(plot())
-        loss_graph = go.Scatter(mode="lines", x=list(range(len(losses))), y=losses)
+        loss_graph = go.Scatter(mode = "lines", x = list(range(len(losses))), y = losses)
         fig = go.Figure(loss_graph)
         fig.update_layout(
-            title="Loss Graph",
-            xaxis=dict(range=[0, max_epochs]),
-            yaxis=dict(range=[0, max(losses)]),
+            title = "Loss Graph",
+            xaxis = dict(range = [0, max_epochs]),
+            yaxis = dict(range = [0, max(losses)]),
         )
         st_epoch_plot.plotly_chart(fig)
 

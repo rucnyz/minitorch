@@ -4,6 +4,7 @@ from hypothesis.strategies import data
 from .strategies import tensor_data, indices
 import pytest
 
+
 # ## Tasks 2.1
 
 # Check basic properties of layout and strides.

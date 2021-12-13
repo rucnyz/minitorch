@@ -8,7 +8,7 @@ from minitorch import MathTestVariable
 one_arg, two_arg, red_arg = MathTestVariable._tests()
 
 
-@given(lists(small_floats, min_size=1))
+@given(lists(small_floats, min_size = 1))
 def test_create(t1):
     t2 = tensor(t1)
     for i in range(len(t1)):
@@ -57,8 +57,8 @@ def test_permute(data, t1):
 
 def test_grad_size():
     "Check that extra grad dim is removed (from @WannaFy)"
-    a = tensor([1], requires_grad=True)
-    b = tensor([[1, 1]], requires_grad=True)
+    a = tensor([1], requires_grad = True)
+    b = tensor([[1, 1]], requires_grad = True)
 
     c = (a * b).sum()
 

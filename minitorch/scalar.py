@@ -7,7 +7,7 @@ import numpy as np
 # Central Difference calculation
 
 
-def central_difference(f, *vals, arg=0, epsilon=1e-6):
+def central_difference(f, *vals, arg = 0, epsilon = 1e-6):
     r"""
     Computes an approximation to the derivative of `f` with respect to one arg.
 
@@ -42,8 +42,8 @@ class Scalar(Variable):
         data (float): The wrapped scalar value.
     """
 
-    def __init__(self, v, back=History(), name=None):
-        super().__init__(back, name=name)
+    def __init__(self, v, back = History(), name = None):
+        super().__init__(back, name = name)
         self.data = float(v)
 
     def __repr__(self):
@@ -315,13 +315,13 @@ def derivative_check(f, *scalars):
 Derivative check at arguments f(%s) and received derivative f'=%f for argument %d,
 but was expecting derivative f'=%f from central difference."""
     for i, x in enumerate(scalars):
-        check = central_difference(f, *vals, arg=i)
+        check = central_difference(f, *vals, arg = i)
         print(str([x.data for x in scalars]), x.derivative, i, check)
         np.testing.assert_allclose(
             x.derivative,
             check.data,
             1e-2,
             1e-2,
-            err_msg=err_msg
-            % (str([x.data for x in scalars]), x.derivative, i, check.data),
+            err_msg = err_msg
+                      % (str([x.data for x in scalars]), x.derivative, i, check.data),
         )

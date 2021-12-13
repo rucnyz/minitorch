@@ -4,7 +4,7 @@ class Optimizer:
 
 
 class SGD(Optimizer):
-    def __init__(self, parameters, lr=1.0):
+    def __init__(self, parameters, lr = 1.0):
         super().__init__(parameters)
         self.lr = lr
 

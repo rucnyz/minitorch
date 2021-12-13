@@ -77,7 +77,7 @@ def map(fn):
 
     f = tensor_map(fn)
 
-    def ret(a, out=None):
+    def ret(a, out = None):
         if out is None:
             out = a.zeros(a.shape)
         f(*out.tuple(), *a.tuple())
@@ -120,15 +120,15 @@ def tensor_zip(fn):
     """
 
     def _zip(
-        out,
-        out_shape,
-        out_strides,
-        a_storage,
-        a_shape,
-        a_strides,
-        b_storage,
-        b_shape,
-        b_strides,
+            out,
+            out_shape,
+            out_strides,
+            a_storage,
+            a_shape,
+            a_strides,
+            b_storage,
+            b_shape,
+            b_strides,
     ):
         # TODO: Implement for Task 2.2.
         raise NotImplementedError('Need to implement for Task 2.2')
@@ -207,7 +207,7 @@ def tensor_reduce(fn):
     return _reduce
 
 
-def reduce(fn, start=0.0):
+def reduce(fn, start = 0.0):
     """
     Higher-order tensor reduce function. ::
 

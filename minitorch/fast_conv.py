@@ -8,28 +8,27 @@ from .tensor_data import (
 from .tensor_functions import Function
 from numba import njit, prange
 
-
 # This code will JIT compile fast versions your tensor_data functions.
 # If you get an error, read the docs for NUMBA as to what is allowed
 # in these functions.
-to_index = njit(inline="always")(to_index)
-index_to_position = njit(inline="always")(index_to_position)
-broadcast_index = njit(inline="always")(broadcast_index)
+to_index = njit(inline = "always")(to_index)
+index_to_position = njit(inline = "always")(index_to_position)
+broadcast_index = njit(inline = "always")(broadcast_index)
 
 
-@njit(parallel=True)
+@njit(parallel = True)
 def tensor_conv1d(
-    out,
-    out_shape,
-    out_strides,
-    out_size,
-    input,
-    input_shape,
-    input_strides,
-    weight,
-    weight_shape,
-    weight_strides,
-    reverse,
+        out,
+        out_shape,
+        out_strides,
+        out_size,
+        input,
+        input_shape,
+        input_strides,
+        weight,
+        weight_shape,
+        weight_strides,
+        reverse,
 ):
     """
     1D Convolution implementation.
@@ -67,9 +66,9 @@ def tensor_conv1d(
     out_channels_, in_channels_, kw = weight_shape
 
     assert (
-        batch == batch_
-        and in_channels == in_channels_
-        and out_channels == out_channels_
+            batch == batch_
+            and in_channels == in_channels_
+            and out_channels == out_channels_
     )
     s1 = input_strides
     s2 = weight_strides
@@ -136,19 +135,19 @@ class Conv1dFun(Function):
 conv1d = Conv1dFun.apply
 
 
-@njit(parallel=True, fastmath=True)
+@njit(parallel = True, fastmath = True)
 def tensor_conv2d(
-    out,
-    out_shape,
-    out_strides,
-    out_size,
-    input,
-    input_shape,
-    input_strides,
-    weight,
-    weight_shape,
-    weight_strides,
-    reverse,
+        out,
+        out_shape,
+        out_strides,
+        out_size,
+        input,
+        input_shape,
+        input_strides,
+        weight,
+        weight_shape,
+        weight_strides,
+        reverse,
 ):
     """
     2D Convolution implementation.
@@ -187,9 +186,9 @@ def tensor_conv2d(
     out_channels_, in_channels_, kh, kw = weight_shape
 
     assert (
-        batch == batch_
-        and in_channels == in_channels_
-        and out_channels == out_channels_
+            batch == batch_
+            and in_channels == in_channels_
+            and out_channels == out_channels_
     )
 
     s1 = input_strides

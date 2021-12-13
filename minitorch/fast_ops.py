@@ -8,15 +8,14 @@ from .tensor_data import (
 )
 from numba import njit, prange
 
-
 # TIP: Use `NUMBA_DISABLE_JIT=1 pytest tests/ -m task3_1` to run these tests without JIT.
 
 # This code will JIT compile fast versions your tensor_data functions.
 # If you get an error, read the docs for NUMBA as to what is allowed
 # in these functions.
-to_index = njit(inline="always")(to_index)
-index_to_position = njit(inline="always")(index_to_position)
-broadcast_index = njit(inline="always")(broadcast_index)
+to_index = njit(inline = "always")(to_index)
+index_to_position = njit(inline = "always")(index_to_position)
+broadcast_index = njit(inline = "always")(broadcast_index)
 
 
 def tensor_map(fn):
@@ -46,7 +45,7 @@ def tensor_map(fn):
         # TODO: Implement for Task 3.1.
         raise NotImplementedError('Need to implement for Task 3.1')
 
-    return njit(parallel=True)(_map)
+    return njit(parallel = True)(_map)
 
 
 def map(fn):
@@ -70,7 +69,7 @@ def map(fn):
     # This line JIT compiles your tensor_map
     f = tensor_map(njit()(fn))
 
-    def ret(a, out=None):
+    def ret(a, out = None):
         if out is None:
             out = a.zeros(a.shape)
         f(*out.tuple(), *a.tuple())
@@ -107,20 +106,20 @@ def tensor_zip(fn):
     """
 
     def _zip(
-        out,
-        out_shape,
-        out_strides,
-        a_storage,
-        a_shape,
-        a_strides,
-        b_storage,
-        b_shape,
-        b_strides,
+            out,
+            out_shape,
+            out_strides,
+            a_storage,
+            a_shape,
+            a_strides,
+            b_storage,
+            b_shape,
+            b_strides,
     ):
         # TODO: Implement for Task 3.1.
         raise NotImplementedError('Need to implement for Task 3.1')
 
-    return njit(parallel=True)(_zip)
+    return njit(parallel = True)(_zip)
 
 
 def zip(fn):
@@ -178,10 +177,10 @@ def tensor_reduce(fn):
         # TODO: Implement for Task 3.1.
         raise NotImplementedError('Need to implement for Task 3.1')
 
-    return njit(parallel=True)(_reduce)
+    return njit(parallel = True)(_reduce)
 
 
-def reduce(fn, start=0.0):
+def reduce(fn, start = 0.0):
     """
     Higher-order tensor reduce function. ::
 
@@ -214,17 +213,17 @@ def reduce(fn, start=0.0):
     return ret
 
 
-@njit(parallel=True, fastmath=True)
+@njit(parallel = True, fastmath = True)
 def tensor_matrix_multiply(
-    out,
-    out_shape,
-    out_strides,
-    a_storage,
-    a_shape,
-    a_strides,
-    b_storage,
-    b_shape,
-    b_strides,
+        out,
+        out_shape,
+        out_strides,
+        a_storage,
+        a_shape,
+        a_strides,
+        b_storage,
+        b_shape,
+        b_strides,
 ):
     """
     NUMBA tensor matrix multiply function.

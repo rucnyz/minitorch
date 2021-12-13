@@ -10,7 +10,7 @@ def get_image_id():
     return img_id_counter
 
 
-def get_img_tag(src, width=None):
+def get_img_tag(src, width = None):
     img_id = get_image_id()
     if width is not None:
         style = """

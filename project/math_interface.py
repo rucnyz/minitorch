@@ -10,7 +10,7 @@ MyModule = None
 minitorch
 
 
-def render_math_sandbox(use_scalar=False, use_tensor=False):
+def render_math_sandbox(use_scalar = False, use_tensor = False):
     st.write("## Sandbox for Math Functions")
     st.write("Visualization of the mathematical tests run on the underlying code.")
 
@@ -21,7 +21,7 @@ def render_math_sandbox(use_scalar=False, use_tensor=False):
     f_type = st.selectbox("Function Type", ["One Arg", "Two Arg", "Reduce"])
     select = {"One Arg": one, "Two Arg": two, "Reduce": red}
 
-    fn = st.selectbox("Function", select[f_type], format_func=lambda a: a[0])
+    fn = st.selectbox("Function", select[f_type], format_func = lambda a: a[0])
     name, _, scalar = fn
     if f_type == "One Arg":
         st.write("### " + name)
@@ -35,14 +35,14 @@ def render_math_sandbox(use_scalar=False, use_tensor=False):
                 ys = [scalar(minitorch.Scalar(p)).data for p in xs]
         else:
             ys = [scalar(p) for p in xs]
-        scatter = go.Scatter(mode="lines", x=xs, y=ys)
+        scatter = go.Scatter(mode = "lines", x = xs, y = ys)
         fig = go.Figure(scatter)
         st.write(fig)
 
         if use_scalar:
             st.write("Derivative f'(x)")
             if use_tensor:
-                x_var = [minitorch.tensor(x, requires_grad=True) for x in xs]
+                x_var = [minitorch.tensor(x, requires_grad = True) for x in xs]
             else:
                 x_var = [minitorch.Scalar(x) for x in xs]
             for x in x_var:
@@ -52,10 +52,10 @@ def render_math_sandbox(use_scalar=False, use_tensor=False):
                 else:
                     out.backward()
             if use_tensor:
-                scatter = go.Scatter(mode="lines", x=xs, y=[x.grad[0] for x in x_var])
+                scatter = go.Scatter(mode = "lines", x = xs, y = [x.grad[0] for x in x_var])
             else:
                 scatter = go.Scatter(
-                    mode="lines", x=xs, y=[x.derivative for x in x_var]
+                    mode = "lines", x = xs, y = [x.derivative for x in x_var]
                 )
             fig = go.Figure(scatter)
             st.write(fig)
@@ -87,7 +87,7 @@ def render_math_sandbox(use_scalar=False, use_tensor=False):
         else:
             zs = [[scalar(x, y) for x in xs] for y in ys]
 
-        scatter = go.Surface(x=xs, y=ys, z=zs)
+        scatter = go.Surface(x = xs, y = ys, z = zs)
 
         fig = go.Figure(scatter)
         st.write(fig)
@@ -117,17 +117,17 @@ def render_math_sandbox(use_scalar=False, use_tensor=False):
             st.write("Derivative f'_x(x, y)")
 
             scatter = go.Surface(
-                x=[[c[0] for c in a2] for a2 in a],
-                y=[[c[1] for c in a2] for a2 in a],
-                z=[[c[2] for c in a2] for a2 in a],
+                x = [[c[0] for c in a2] for a2 in a],
+                y = [[c[1] for c in a2] for a2 in a],
+                z = [[c[2] for c in a2] for a2 in a],
             )
             fig = go.Figure(scatter)
             st.write(fig)
             st.write("Derivative f'_y(x, y)")
             scatter = go.Surface(
-                x=[[c[0] for c in a2] for a2 in b],
-                y=[[c[1] for c in a2] for a2 in b],
-                z=[[c[2] for c in a2] for a2 in b],
+                x = [[c[0] for c in a2] for a2 in b],
+                y = [[c[1] for c in a2] for a2 in b],
+                z = [[c[2] for c in a2] for a2 in b],
             )
             fig = go.Figure(scatter)
             st.write(fig)
@@ -139,13 +139,13 @@ def render_math_sandbox(use_scalar=False, use_tensor=False):
 
         if use_tensor:
             scatter = go.Surface(
-                x=xs,
-                y=ys,
-                z=[[scalar(minitorch.tensor([x, y]))[0] for x in xs] for y in ys],
+                x = xs,
+                y = ys,
+                z = [[scalar(minitorch.tensor([x, y]))[0] for x in xs] for y in ys],
             )
         else:
             scatter = go.Surface(
-                x=xs, y=ys, z=[[scalar([x, y]) for x in xs] for y in ys]
+                x = xs, y = ys, z = [[scalar([x, y]) for x in xs] for y in ys]
             )
         fig = go.Figure(scatter)
         st.write(fig)

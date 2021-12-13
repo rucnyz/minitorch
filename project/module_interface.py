@@ -14,9 +14,9 @@ def render_module_sandbox():
     )
 
     code = st.text_area(
-        label="Module code",
-        height=600,
-        value="""
+        label = "Module code",
+        height = 600,
+        value = """
 class MyModule(minitorch.Module):
     def __init__(self):
         super().__init__()
@@ -34,7 +34,7 @@ class MyModule(minitorch.Module):
         n, name = stack[0]
         stack = stack[1:]
         for pname, p in n.__dict__["_parameters"].items():
-            G.add_node(name + "." + pname, shape="rect", penwidth=0.5)
+            G.add_node(name + "." + pname, shape = "rect", penwidth = 0.5)
             G.add_edge(name, name + "." + pname)
 
         for cname, m in n.__dict__["_modules"].items():

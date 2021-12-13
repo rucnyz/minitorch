@@ -6,9 +6,9 @@ def build_expression(code):
     out = eval(
         code,
         {
-            "x": minitorch.Scalar(1.0, name="x"),
-            "y": minitorch.Scalar(1.0, name="y"),
-            "z": minitorch.Scalar(1.0, name="z"),
+            "x": minitorch.Scalar(1.0, name = "x"),
+            "y": minitorch.Scalar(1.0, name = "y"),
+            "z": minitorch.Scalar(1.0, name = "z"),
         },
     )
     out.name = "out"
@@ -19,9 +19,9 @@ def build_tensor_expression(code):
     out = eval(
         code,
         {
-            "x": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
-            "y": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
-            "z": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
+            "x": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad = True),
+            "y": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad = True),
+            "z": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad = True),
         },
     )
     out.name = "out"
@@ -61,7 +61,7 @@ class GraphBuilder:
                 continue
             else:
                 op = "%s (Op %d)" % (cur.history.last_fn.__name__, self.op_id)
-                G.add_node(op, shape="square", penwidth=3)
+                G.add_node(op, shape = "square", penwidth = 3)
                 G.add_edge(op, self.get_name(cur))
                 self.op_id += 1
                 for i, input in enumerate(cur.history.inputs):

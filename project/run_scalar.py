@@ -63,10 +63,10 @@ class ScalarTrain:
 
     def run_one(self, x):
         return self.model.forward(
-            (minitorch.Scalar(x[0], name="x_1"), minitorch.Scalar(x[1], name="x_2"))
+            (minitorch.Scalar(x[0], name = "x_1"), minitorch.Scalar(x[1], name = "x_2"))
         )
 
-    def train(self, data, learning_rate, max_epochs=500, log_fn=default_log_fn):
+    def train(self, data, learning_rate, max_epochs = 500, log_fn = default_log_fn):
         self.learning_rate = learning_rate
         self.max_epochs = max_epochs
         self.model = Network(self.hidden_layers)

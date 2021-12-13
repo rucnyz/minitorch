@@ -20,259 +20,255 @@ def permute(mat, x, y):
     return mat.transpose(x, y)
 
 
-def plot_matrix(x, y, title, w=300, h=500, bg="white"):
+def plot_matrix(x, y, title, w = 300, h = 500, bg = "white"):
     data = [
         go.Scatter(
-            hoverinfo="skip",
-            mode="markers",
-            x=x,
-            y=y,
-            marker=dict(color="black", size=50, symbol="square-open"),
+            hoverinfo = "skip",
+            mode = "markers",
+            x = x,
+            y = y,
+            marker = dict(color = "black", size = 50, symbol = "square-open"),
         ),
     ]
 
     layout = go.Layout(
-        title={"text": title, "x": 0.5, "y": 0.9, "xanchor": "center"},
-        font={"family": "Raleway", "size": 40, "color": "black"},
-        xaxis={"showgrid": False, "showticklabels": False},
-        yaxis={"showgrid": False, "showticklabels": False},
-        paper_bgcolor=bg,
-        plot_bgcolor=bg,
-        autosize=False,
-        width=w,
-        height=h,
-        showlegend=False,
+        title = {"text": title, "x": 0.5, "y": 0.9, "xanchor": "center"},
+        font = {"family": "Raleway", "size": 40, "color": "black"},
+        xaxis = {"showgrid": False, "showticklabels": False},
+        yaxis = {"showgrid": False, "showticklabels": False},
+        paper_bgcolor = bg,
+        plot_bgcolor = bg,
+        autosize = False,
+        width = w,
+        height = h,
+        showlegend = False,
     )
 
-    fig = go.Figure(data=data, layout=layout)
+    fig = go.Figure(data = data, layout = layout)
     fig.show()
 
 
 def plot_map():
-
     data = [
         go.Scatter(
-            hoverinfo="skip",
-            mode="markers",
-            x=x,
-            y=y,
-            marker=dict(color="black", size=50, symbol="square-open"),
+            hoverinfo = "skip",
+            mode = "markers",
+            x = x,
+            y = y,
+            marker = dict(color = "black", size = 50, symbol = "square-open"),
         ),
         go.Scatter(
-            hoverinfo="skip",
-            mode="markers",
-            x=x1,
-            y=y1,
-            marker=dict(color="#69BAC9", size=50, symbol="square"),
+            hoverinfo = "skip",
+            mode = "markers",
+            x = x1,
+            y = y1,
+            marker = dict(color = "#69BAC9", size = 50, symbol = "square"),
         ),
     ]
 
     layout = go.Layout(
-        title={"text": "map", "x": 0.5, "y": 0.9, "xanchor": "center"},
-        font={"family": "Raleway", "size": 40, "color": "black"},
-        xaxis={"showgrid": False, "showticklabels": False},
-        yaxis={"showgrid": False, "showticklabels": False},
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        autosize=False,
-        width=500,
-        height=400,
-        showlegend=False,
+        title = {"text": "map", "x": 0.5, "y": 0.9, "xanchor": "center"},
+        font = {"family": "Raleway", "size": 40, "color": "black"},
+        xaxis = {"showgrid": False, "showticklabels": False},
+        yaxis = {"showgrid": False, "showticklabels": False},
+        paper_bgcolor = "rgba(0,0,0,0)",
+        plot_bgcolor = "rgba(0,0,0,0)",
+        autosize = False,
+        width = 500,
+        height = 400,
+        showlegend = False,
     )
 
-    fig = go.Figure(data=data, layout=layout)
+    fig = go.Figure(data = data, layout = layout)
 
     fig.add_annotation(
-        x=5,
-        y=2,
-        ax=2,
-        ay=2,
-        xref="x",
-        yref="y",
-        axref="x",
-        ayref="y",
-        showarrow=True,
-        arrowhead=3,
-        font=dict(size=15, color="black",),
+        x = 5,
+        y = 2,
+        ax = 2,
+        ay = 2,
+        xref = "x",
+        yref = "y",
+        axref = "x",
+        ayref = "y",
+        showarrow = True,
+        arrowhead = 3,
+        font = dict(size = 15, color = "black", ),
     )
     fig.add_annotation(
-        x=4,
-        y=3,
-        ax=1,
-        ay=3,
-        xref="x",
-        yref="y",
-        axref="x",
-        ayref="y",
-        showarrow=True,
-        arrowhead=3,
-        font=dict(size=15, color="black",),
+        x = 4,
+        y = 3,
+        ax = 1,
+        ay = 3,
+        xref = "x",
+        yref = "y",
+        axref = "x",
+        ayref = "y",
+        showarrow = True,
+        arrowhead = 3,
+        font = dict(size = 15, color = "black", ),
     )
     fig.show()
 
 
 def plot_zip():
-
     data = [
         go.Scatter(
-            hoverinfo="skip",
-            mode="markers",
-            x=x,
-            y=y,
-            marker=dict(color="black", size=50, symbol="square-open"),
+            hoverinfo = "skip",
+            mode = "markers",
+            x = x,
+            y = y,
+            marker = dict(color = "black", size = 50, symbol = "square-open"),
         ),
         go.Scatter(
-            hoverinfo="skip",
-            mode="markers",
-            x=x1,
-            y=y1,
-            marker=dict(color="black", size=50, symbol="square-open"),
+            hoverinfo = "skip",
+            mode = "markers",
+            x = x1,
+            y = y1,
+            marker = dict(color = "black", size = 50, symbol = "square-open"),
         ),
         go.Scatter(
-            hoverinfo="skip",
-            mode="markers",
-            x=x2,
-            y=y2,
-            marker=dict(color="#69BAC9", size=50, symbol="square"),
+            hoverinfo = "skip",
+            mode = "markers",
+            x = x2,
+            y = y2,
+            marker = dict(color = "#69BAC9", size = 50, symbol = "square"),
         ),
     ]
 
     layout = go.Layout(
-        title={"text": "zip", "x": 0.5, "y": 0.9, "xanchor": "center"},
-        font={"family": "Raleway", "size": 40, "color": "black"},
-        xaxis={"showgrid": False, "showticklabels": False},
-        yaxis={"showgrid": False, "showticklabels": False},
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        autosize=False,
-        width=700,
-        height=400,
-        showlegend=False,
+        title = {"text": "zip", "x": 0.5, "y": 0.9, "xanchor": "center"},
+        font = {"family": "Raleway", "size": 40, "color": "black"},
+        xaxis = {"showgrid": False, "showticklabels": False},
+        yaxis = {"showgrid": False, "showticklabels": False},
+        paper_bgcolor = "rgba(0,0,0,0)",
+        plot_bgcolor = "rgba(0,0,0,0)",
+        autosize = False,
+        width = 700,
+        height = 400,
+        showlegend = False,
     )
 
-    fig = go.Figure(data=data, layout=layout)
+    fig = go.Figure(data = data, layout = layout)
     fig.add_annotation(
-        x=8,
-        y=3,
-        ax=2,
-        ay=3,
-        xref="x",
-        yref="y",
-        axref="x",
-        ayref="y",
-        showarrow=True,
-        arrowhead=3,
-        font=dict(size=15, color="black",),
+        x = 8,
+        y = 3,
+        ax = 2,
+        ay = 3,
+        xref = "x",
+        yref = "y",
+        axref = "x",
+        ayref = "y",
+        showarrow = True,
+        arrowhead = 3,
+        font = dict(size = 15, color = "black", ),
     )
     fig.add_annotation(
-        x=8,
-        y=3,
-        ax=5,
-        ay=2.8,
-        xref="x",
-        yref="y",
-        axref="x",
-        ayref="y",
-        showarrow=True,
-        arrowhead=3,
-        font=dict(size=15, color="black",),
+        x = 8,
+        y = 3,
+        ax = 5,
+        ay = 2.8,
+        xref = "x",
+        yref = "y",
+        axref = "x",
+        ayref = "y",
+        showarrow = True,
+        arrowhead = 3,
+        font = dict(size = 15, color = "black", ),
     )
     fig.show()
 
 
 def plot_reduce():
-
     data = [
         go.Scatter(
-            hoverinfo="skip",
-            mode="markers",
-            x=x,
-            y=y,
-            marker=dict(color="black", size=50, symbol="square-open"),
+            hoverinfo = "skip",
+            mode = "markers",
+            x = x,
+            y = y,
+            marker = dict(color = "black", size = 50, symbol = "square-open"),
         ),
         go.Scatter(
-            hoverinfo="skip",
-            mode="markers",
-            x=x1[:2],
-            y=y1[:2],
-            marker=dict(color="#69BAC9", size=50, symbol="square"),
+            hoverinfo = "skip",
+            mode = "markers",
+            x = x1[:2],
+            y = y1[:2],
+            marker = dict(color = "#69BAC9", size = 50, symbol = "square"),
         ),
     ]
 
     layout = go.Layout(
-        title={"text": "reduce", "x": 0.5, "y": 0.9, "xanchor": "center"},
-        font={"family": "Raleway", "size": 40, "color": "black"},
-        xaxis={"showgrid": False, "showticklabels": False},
-        yaxis={"showgrid": False, "showticklabels": False},
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        autosize=False,
-        width=700,
-        height=400,
-        showlegend=False,
+        title = {"text": "reduce", "x": 0.5, "y": 0.9, "xanchor": "center"},
+        font = {"family": "Raleway", "size": 40, "color": "black"},
+        xaxis = {"showgrid": False, "showticklabels": False},
+        yaxis = {"showgrid": False, "showticklabels": False},
+        paper_bgcolor = "rgba(0,0,0,0)",
+        plot_bgcolor = "rgba(0,0,0,0)",
+        autosize = False,
+        width = 700,
+        height = 400,
+        showlegend = False,
     )
 
-    fig = go.Figure(data=data, layout=layout)
+    fig = go.Figure(data = data, layout = layout)
 
     fig.add_annotation(
-        x=2,
-        y=1,
-        ax=2,
-        ay=3,
-        xref="x",
-        yref="y",
-        axref="x",
-        ayref="y",
-        showarrow=True,
-        arrowhead=3,
-        font=dict(size=15, color="black",),
+        x = 2,
+        y = 1,
+        ax = 2,
+        ay = 3,
+        xref = "x",
+        yref = "y",
+        axref = "x",
+        ayref = "y",
+        showarrow = True,
+        arrowhead = 3,
+        font = dict(size = 15, color = "black", ),
     )
     fig.add_annotation(
-        x=1,
-        y=1,
-        ax=1,
-        ay=3,
-        xref="x",
-        yref="y",
-        axref="x",
-        ayref="y",
-        showarrow=True,
-        arrowhead=3,
-        font=dict(size=15, color="black",),
+        x = 1,
+        y = 1,
+        ax = 1,
+        ay = 3,
+        xref = "x",
+        yref = "y",
+        axref = "x",
+        ayref = "y",
+        showarrow = True,
+        arrowhead = 3,
+        font = dict(size = 15, color = "black", ),
     )
     fig.add_annotation(
-        x=3.5,
-        y=1,
-        ax=2.3,
-        ay=1,
-        xref="x",
-        yref="y",
-        axref="x",
-        ayref="y",
-        showarrow=True,
-        arrowhead=3,
-        font=dict(size=15, color="black",),
+        x = 3.5,
+        y = 1,
+        ax = 2.3,
+        ay = 1,
+        xref = "x",
+        yref = "y",
+        axref = "x",
+        ayref = "y",
+        showarrow = True,
+        arrowhead = 3,
+        font = dict(size = 15, color = "black", ),
     )
     fig.show()
 
 
-def plot_tensor(x, y, z, active=5):
+def plot_tensor(x, y, z, active = 5):
     fig = go.Figure()
 
     # Construct tensor coordinates
-    def construct_tensor(shape=[x, y, z]):
+    def construct_tensor(shape = [x, y, z]):
         coords = []
         for z in list(range(shape[2])):
             for y in list(range(shape[1])):
                 for x in list(range(shape[0])):
-
                     coords.append([x, y, z])
         return np.array(coords) * 1.1
 
-    tensor_coords = construct_tensor(shape=[x, y, z])
+    tensor_coords = construct_tensor(shape = [x, y, z])
 
     # Construct one 3d mesh box
-    def add_one_box(ind, xs, ys, zs, name, alpha=1.0):
+    def add_one_box(ind, xs, ys, zs, name, alpha = 1.0):
 
         # Build triangles from tensor coordinates
         i = [7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2]
@@ -298,19 +294,19 @@ def plot_tensor(x, y, z, active=5):
             c = "white"
         fig.add_trace(
             go.Mesh3d(
-                hoverinfo="skip",
-                opacity=alpha,
-                x=xs,
-                y=ys,
-                z=zs,
-                color=c,
-                flatshading=True,
-                alphahull=0,
-                name=name,
-                showscale=False,
-                visible=True,
-                lighting=dict(ambient=0.5, diffuse=0.6),
-                lightposition=dict(x=0, y=0, z=0),
+                hoverinfo = "skip",
+                opacity = alpha,
+                x = xs,
+                y = ys,
+                z = zs,
+                color = c,
+                flatshading = True,
+                alphahull = 0,
+                name = name,
+                showscale = False,
+                visible = True,
+                lighting = dict(ambient = 0.5, diffuse = 0.6),
+                lightposition = dict(x = 0, y = 0, z = 0),
             )
         )
 
@@ -360,9 +356,9 @@ def plot_tensor(x, y, z, active=5):
                 ind,
                 *construct_whole_box(i),
                 str((np.array([i[0], i[2], i[1]]) / (1.1)).astype(int))
-                .replace(" ", ",")
-                .replace("[", "(")
-                .replace("]", ")")
+                    .replace(" ", ",")
+                    .replace("[", "(")
+                    .replace("]", ")")
             )
 
     box_adder(tensor_coords)
@@ -370,20 +366,20 @@ def plot_tensor(x, y, z, active=5):
 
 
 def tensor_figure(
-    x,
-    y,
-    z,
-    active,
-    title,
-    xr=None,
-    yr=None,
-    zr=None,
-    axisTitles=axis_default,
-    slider=True,
-    eye=dict(x=2.8, y=1.6, z=1.6),
-    show_fig=True,
+        x,
+        y,
+        z,
+        active,
+        title,
+        xr = None,
+        yr = None,
+        zr = None,
+        axisTitles = axis_default,
+        slider = True,
+        eye = dict(x = 2.8, y = 1.6, z = 1.6),
+        show_fig = True,
 ):
-    fig = plot_tensor(x, y, z, active=active)
+    fig = plot_tensor(x, y, z, active = active)
     if xr is None:
         xr = [x + 0.2, 0]
         yr = [0, y + 0.2]
@@ -393,8 +389,8 @@ def tensor_figure(
         steps = []
         for i, val in enumerate(fig.data):
             step = dict(
-                method="update",
-                args=[
+                method = "update",
+                args = [
                     {
                         "opacity": [1.0] * len(fig.data),
                         "color": ["white"] * len(fig.data),
@@ -408,53 +404,53 @@ def tensor_figure(
             steps.append(step)
 
         fig.update_layout(
-            sliders=[
+            sliders = [
                 dict(
-                    active=active,
-                    steps=steps,
-                    currentvalue=dict(visible=False),
-                    tickcolor="#fcfcfc",
-                    font=dict(color="#fcfcfc"),
+                    active = active,
+                    steps = steps,
+                    currentvalue = dict(visible = False),
+                    tickcolor = "#fcfcfc",
+                    font = dict(color = "#fcfcfc"),
                 ),
             ],
         )
 
-    camera = dict(up=dict(x=0, y=0, z=1), center=dict(x=0, y=0, z=0), eye=eye)
+    camera = dict(up = dict(x = 0, y = 0, z = 1), center = dict(x = 0, y = 0, z = 0), eye = eye)
 
     fig.update_layout(
-        title={"text": title, "x": 0.5, "y": 0.9, "xanchor": "center"},
-        font={"family": "Raleway", "size": 40, "color": "black"},
-        scene_camera=camera,
-        paper_bgcolor="#fcfcfc",
-        font_size=20,
-        hovermode="x unified",
-        hoverlabel=dict(bgcolor="#fcfcfc", font_size=30, font_family="Times New Roman"),
-        scene=dict(
-            xaxis=dict(
-                showbackground=False,
-                zerolinecolor="#fcfcfc",
-                showticklabels=False,
-                range=xr,
-                title=axisTitles[0],
+        title = {"text": title, "x": 0.5, "y": 0.9, "xanchor": "center"},
+        font = {"family": "Raleway", "size": 40, "color": "black"},
+        scene_camera = camera,
+        paper_bgcolor = "#fcfcfc",
+        font_size = 20,
+        hovermode = "x unified",
+        hoverlabel = dict(bgcolor = "#fcfcfc", font_size = 30, font_family = "Times New Roman"),
+        scene = dict(
+            xaxis = dict(
+                showbackground = False,
+                zerolinecolor = "#fcfcfc",
+                showticklabels = False,
+                range = xr,
+                title = axisTitles[0],
             ),
-            yaxis=dict(
-                showbackground=False,
-                zerolinecolor="#fcfcfc",
-                showticklabels=False,
-                range=yr,
-                title=axisTitles[1],
+            yaxis = dict(
+                showbackground = False,
+                zerolinecolor = "#fcfcfc",
+                showticklabels = False,
+                range = yr,
+                title = axisTitles[1],
             ),
-            zaxis=dict(
-                showbackground=False,
-                zerolinecolor="#fcfcfc",
-                showticklabels=False,
-                range=zr,
-                title=axisTitles[2],
+            zaxis = dict(
+                showbackground = False,
+                zerolinecolor = "#fcfcfc",
+                showticklabels = False,
+                range = zr,
+                title = axisTitles[2],
             ),
         ),
-        width=500,
-        height=500,
-        margin=dict(r=10, l=10, b=10, t=50),
+        width = 500,
+        height = 500,
+        margin = dict(r = 10, l = 10, b = 10, t = 50),
     )
     if show_fig:
         fig.show()

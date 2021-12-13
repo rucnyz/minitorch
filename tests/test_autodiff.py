@@ -2,6 +2,7 @@ import minitorch
 import pytest
 from minitorch import History
 
+
 # ## Task 1.3 - Tests for the autodifferentiation machinery.
 
 # Simple sanity check and debugging tests.
@@ -40,7 +41,7 @@ class Function2(minitorch.ScalarFunction):
 def test_chain_rule1():
     "Check that constants are ignored."
     constant = minitorch.Variable(None)
-    back = Function1.chain_rule(ctx=None, inputs=[constant, constant], d_output=5)
+    back = Function1.chain_rule(ctx = None, inputs = [constant, constant], d_output = 5)
     assert len(list(back)) == 0
 
 
@@ -49,7 +50,7 @@ def test_chain_rule2():
     "Check that constrants are ignored and variables get derivatives."
     var = minitorch.Variable(History())
     constant = minitorch.Variable(None)
-    back = Function1.chain_rule(ctx=None, inputs=[var, constant], d_output=5)
+    back = Function1.chain_rule(ctx = None, inputs = [var, constant], d_output = 5)
     back = list(back)
     assert len(back) == 1
     variable, deriv = back[0]
@@ -66,7 +67,7 @@ def test_chain_rule3():
     ctx = minitorch.Context()
     Function2.forward(ctx, constant, var.data)
 
-    back = Function2.chain_rule(ctx=ctx, inputs=[constant, var], d_output=5)
+    back = Function2.chain_rule(ctx = ctx, inputs = [constant, var], d_output = 5)
     back = list(back)
     assert len(back) == 1
     variable, deriv = back[0]
@@ -82,7 +83,7 @@ def test_chain_rule4():
     ctx = minitorch.Context()
     Function2.forward(ctx, var1.data, var2.data)
 
-    back = Function2.chain_rule(ctx=ctx, inputs=[var1, var2], d_output=5)
+    back = Function2.chain_rule(ctx = ctx, inputs = [var1, var2], d_output = 5)
     back = list(back)
     assert len(back) == 2
     variable, deriv = back[0]
@@ -103,7 +104,7 @@ def test_backprop1():
     # Example 1: F1(0, v)
     var = minitorch.Scalar(0)
     var2 = Function1.apply(0, var)
-    var2.backward(d_output=5)
+    var2.backward(d_output = 5)
     assert var.derivative == 5
 
 
@@ -113,7 +114,7 @@ def test_backprop2():
     var = minitorch.Scalar(0)
     var2 = Function1.apply(0, var)
     var3 = Function1.apply(0, var2)
-    var3.backward(d_output=5)
+    var3.backward(d_output = 5)
     assert var.derivative == 5
 
 
@@ -124,7 +125,7 @@ def test_backprop3():
     var2 = Function1.apply(0, var1)
     var3 = Function1.apply(0, var1)
     var4 = Function1.apply(var2, var3)
-    var4.backward(d_output=5)
+    var4.backward(d_output = 5)
     assert var1.derivative == 10
 
 
@@ -136,5 +137,5 @@ def test_backprop4():
     var2 = Function1.apply(0, var1)
     var3 = Function1.apply(0, var1)
     var4 = Function1.apply(var2, var3)
-    var4.backward(d_output=5)
+    var4.backward(d_output = 5)
     assert var0.derivative == 10

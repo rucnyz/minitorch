@@ -165,8 +165,8 @@ def test_zip_with(a, b, c, d):
 
 @pytest.mark.task0_3
 @given(
-    lists(small_floats, min_size=5, max_size=5),
-    lists(small_floats, min_size=5, max_size=5),
+    lists(small_floats, min_size = 5, max_size = 5),
+    lists(small_floats, min_size = 5, max_size = 5),
 )
 def test_sum_distribute(ls1, ls2):
     """
